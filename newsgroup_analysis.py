@@ -51,7 +51,10 @@ def check_domain_validity(domain_comp):
     
     if (check_fullstop(domain_comp) == False):
         return False
-        
+    
+    if ("." not in domain_comp):
+        return False
+    
     # Check that domain component does not contain invalid characters
     for c in domain_comp:
         if (c not in allowed):
@@ -81,6 +84,6 @@ def process_newsgroup_topic():
 
 
 if __name__ == "__main__":
-    test = 'mysite123@gmail.b'
+    test = 'mysite123@gmail.com'
 
     print("Final result: ", check_email_validity(test))
