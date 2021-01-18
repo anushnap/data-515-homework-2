@@ -2,26 +2,7 @@
 # DATA 515
 # Homework 2: Programming
 # January 21, 2021
-
-# An email is a string (a subset of ASCII characters) separated into two parts by @ symbol. Let's call the first part *personal* and the latter part *domain*, i.e., personal@domain. The length of the personal part may be up to 64 characters long and domain name may be up to 253 characters.
-
-# The personal and domain parts contains the following ASCII characters:
-
-# - Uppercase (`A-Z`) and lowercase (`a-z`) English letters.
-# - Digits (`0-9`).
-# - Character `-` (dash).
-# - Character `.` (period, dot or fullstop) provided that it is not the first or last character and it will not come one after the other.
-
-# Additionally, the personal part can contain:
-
-# - Characters `! # $ % & ' * + / = ? ^ _ { | } ~`
-
-# Example of valid emails:
-
-#     mysite@ourearth.com
-#     my.ownsite@ourearth.org
-#     mysite@you.me.net
-#     mysite123@gmail.b [This is valid, discussion in Canvas]
+import string
 
 # Example of invalid emails:
 
@@ -32,7 +13,6 @@
 #     .mysite@mysite.org [Personal part can not start with "."]
 #     mysite()*@gmail.com [Invalid due to parentheses in personal part, asterisk acceptable]
 #     mysite..1234@yahoo.com [double dots are not allowed]
-
 
 # Takes an string arg email and returns whether the email is valid based on requirements for valid emails
 def check_email_validity(email):
@@ -45,6 +25,7 @@ def check_email_validity(email):
         # When there is exactly 1 @, then check the personal and domain components of the email
         personal_comp = email_components[0]
         domain_comp = email_components[1]
+
         # check_personal_validity(personal_comp)
         # check_domain_validity(domain_comp)
 
@@ -52,17 +33,31 @@ def check_email_validity(email):
       
 # Takes the personal component of an email address string and returns whether the component is valid
 def check_personal_validity(personal_comp):
-    pass
+    # Set of valid characters for personal component
+    s = {'!', '#', '$', '%', '&', '\'', '*', '+', '/', '=', '?', '^', '_', '{', '|', '}', '~'}    
+    allowed = set(string.ascii_letters + string.digits)
+    allowed.update(s)
+    
+    if (check_fullstop(personal_comp) == False):
+        return False
+
+    for c in personal_comp:
+        if (c not in allowed):
+            return False
+
 
 # Takes domain component of an email address string and returns whether the component is valid
 def check_domain_validity(domain_comp):
-    # Set of invalid characters for domain component
-    s = {'!', '#', '$', '%', '&', '\'', '*', '+', '/', '=', '?', '^', '_', '{', '|', '}', '~'}
+    allowed = set(string.ascii_letters + string.digits + "." + "-")
     
+    if (check_fullstop(domain_comp) == False):
+        return False
+        
     # Check that domain component does not contain invalid characters
     for c in domain_comp:
-        if (c in s):
+        if (c not in allowed):
             return False
+    
     
     # Domain component cannot contain ".." and cannot start or end with "."
 
@@ -82,3 +77,8 @@ def process_newsgroup_file(filepath, word_counts):
 # #3 in homework requirements
 def process_newsgroup_topic():
     pass
+
+
+if __name__ == "__main__":
+    test = 'mysite.com.'
+    print(check_fullstop(test))
