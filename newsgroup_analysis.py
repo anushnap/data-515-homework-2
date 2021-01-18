@@ -36,15 +36,49 @@
 
 # Takes an string arg email and returns whether the email is valid based on requirements for valid emails
 def check_email_validity(email):
-    # If email does not contain @ symbol, not valid
-    # If email contains more than 1 @ symbol, not valid
-    # Separate email into personal part and domain, and check validity of each
-    # check_personal_validity(personal_comp)
-    # check_domain_validity(domain_comp)
-      
+    email_components = email.split('@')
+    
+    if ((len(email_components) == 1) | len(email_components) > 2):
+        # If email does not contain @ or has more than one @, it is not valid
+        return False
+    else:
+        # When there is exactly 1 @, then check the personal and domain components of the email
+        personal_comp = email_components[0]
+        domain_comp = email_components[1]
+        # check_personal_validity(personal_comp)
+        # check_domain_validity(domain_comp)
 
+        return ((check_personal_validity == True) & (check_domain_validity == True))
+      
+# Takes the personal component of an email address string and returns whether the component is valid
 def check_personal_validity(personal_comp):
     pass
 
+# Takes domain component of an email address string and returns whether the component is valid
 def check_domain_validity(domain_comp):
+    # Set of invalid characters for domain component
+    s = {'!', '#', '$', '%', '&', '\'', '*', '+', '/', '=', '?', '^', '_', '{', '|', '}', '~'}
+    
+    # Check that domain component does not contain invalid characters
+    for c in domain_comp:
+        if (c in s):
+            return False
+    
+    # Domain component cannot contain ".." and cannot start or end with "."
+
+# Takes email address component and returns if component has valid usage of "." character
+def check_fullstop(component):
+    if ((component[0] == ".") | (component[-1] == ".")):
+        return False
+    elif (".." in component):
+        return False
+    else:
+        return True
+
+# #2 in homework requirements
+def process_newsgroup_file(filepath, word_counts):
+    pass
+
+# #3 in homework requirements
+def process_newsgroup_topic():
     pass
