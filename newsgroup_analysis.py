@@ -44,6 +44,8 @@ def check_personal_validity(personal_comp):
     for c in personal_comp:
         if (c not in allowed):
             return False
+    
+    return True
 
 
 # Takes domain component of an email address string and returns whether the component is valid
@@ -57,6 +59,8 @@ def check_domain_validity(domain_comp):
     for c in domain_comp:
         if (c not in allowed):
             return False
+    
+    return True
     
     
     # Domain component cannot contain ".." and cannot start or end with "."
@@ -80,5 +84,6 @@ def process_newsgroup_topic():
 
 
 if __name__ == "__main__":
-    test = 'mysite.com.'
-    print(check_fullstop(test))
+    test = 'mysite!!'
+    print("Personal: ", check_personal_validity(test))
+    print("Domain: ", check_domain_validity(test))
