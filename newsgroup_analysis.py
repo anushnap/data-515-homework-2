@@ -4,21 +4,11 @@
 # January 21, 2021
 import string
 
-# Example of invalid emails:
-
-#     mysite.ourearth.com [@ is not present]
-#     mysite@.com.my [domain can not start with dot "."]
-#     @you.me.net [No character before @]
-#     mysite@.org.org [domain can not start with dot "."]
-#     .mysite@mysite.org [Personal part can not start with "."]
-#     mysite()*@gmail.com [Invalid due to parentheses in personal part, asterisk acceptable]
-#     mysite..1234@yahoo.com [double dots are not allowed]
-
 # Takes an string arg email and returns whether the email is valid based on requirements for valid emails
 def check_email_validity(email):
     email_components = email.split('@')
     
-    if ((len(email_components) == 1) | len(email_components) > 2):
+    if ((len(email_components) == 1) | (len(email_components) > 2)):
         # If email does not contain @ or has more than one @, it is not valid
         return False
     else:
@@ -26,16 +16,23 @@ def check_email_validity(email):
         personal_comp = email_components[0]
         domain_comp = email_components[1]
 
-        # check_personal_validity(personal_comp)
-        # check_domain_validity(domain_comp)
+        # If either domain or personal is empty string, then invalid
+        if ((len(personal_comp) == 0) | (len(domain_comp) == 0)):
+            return False
 
-        return ((check_personal_validity == True) & (check_domain_validity == True))
+        print("Personal component: ", personal_comp)
+        print("Domain component: ", domain_comp)
+
+        print("Personal validity: ", check_personal_validity(personal_comp))
+        print("Domain validity: ", check_domain_validity(domain_comp))
+
+        return ((check_personal_validity(personal_comp) == True) & (check_domain_validity(domain_comp) == True))
       
 # Takes the personal component of an email address string and returns whether the component is valid
 def check_personal_validity(personal_comp):
     # Set of valid characters for personal component
     s = {'!', '#', '$', '%', '&', '\'', '*', '+', '/', '=', '?', '^', '_', '{', '|', '}', '~'}    
-    allowed = set(string.ascii_letters + string.digits)
+    allowed = set(string.ascii_letters + string.digits + "." + "-")
     allowed.update(s)
     
     if (check_fullstop(personal_comp) == False):
@@ -84,6 +81,6 @@ def process_newsgroup_topic():
 
 
 if __name__ == "__main__":
-    test = 'mysite!!'
-    print("Personal: ", check_personal_validity(test))
-    print("Domain: ", check_domain_validity(test))
+    test = 'mysite123@gmail.b'
+
+    print("Final result: ", check_email_validity(test))
