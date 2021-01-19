@@ -20,12 +20,6 @@ def check_email_validity(email):
         if ((len(personal_comp) == 0) | (len(domain_comp) == 0)):
             return False
 
-        print("Personal component: ", personal_comp)
-        print("Domain component: ", domain_comp)
-
-        print("Personal validity: ", check_personal_validity(personal_comp))
-        print("Domain validity: ", check_domain_validity(domain_comp))
-
         return ((check_personal_validity(personal_comp) == True) & (check_domain_validity(domain_comp) == True))
       
 # Takes the personal component of an email address string and returns whether the component is valid
