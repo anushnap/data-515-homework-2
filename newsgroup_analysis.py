@@ -111,6 +111,7 @@ def process_newsgroup_topic():
 
 
 if __name__ == "__main__":
-    # test = 'mysite123@gmail.com'
+    test = '/home/anushnap/msds/DATA 515 - Software Design/homework-2/20_newsgroups/sci.crypt/15565'
+    test_d = {}
 
-    # print("Final result: ", check_email_validity(test))
+    print("Final result: ", process_newsgroup_file(test, test_d))
