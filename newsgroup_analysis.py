@@ -95,8 +95,13 @@ def process_newsgroup_file(filepath, word_counts):
                         t = t.replace(c, '')
                 # Once cleaned, make each word lowercase only
                 t = t.lower()
-
-            
+                if t in word_counts:
+                    word_counts[t] += 1
+                else:
+                    word_counts[t] = 1
+        
+    # Return a tuple with first element being list of valid emails and then word_counts.
+    return (valid_emails, word_counts)        
 
 
 
