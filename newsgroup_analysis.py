@@ -76,7 +76,29 @@ def check_fullstop(component):
 
 # #2 in homework requirements
 def process_newsgroup_file(filepath, word_counts):
-    pass
+    # Save each word into dictionary with words as keys and int counts as values
+    valid_emails = []
+
+    with open(filepath, encoding = 'windows-1252', mode = 'r') as file:
+        read_data = file.read()
+        tokens = read_data.split()
+        allowed = set(string.ascii_letters + string.digits)
+
+        for t in tokens:
+            if (check_email_validity(t)):
+                # Append into list
+                valid_emails.append(t)
+            else:           
+                for c in t:
+                    # Clean the token so it only has ascii and numbers, no punctuation or special characters
+                    if c not in allowed:
+                        t = t.replace(c, '')
+                # Once cleaned, make each word lowercase only
+                t = t.lower()
+
+            
+
+
 
 # #3 in homework requirements
 def process_newsgroup_topic():
@@ -84,6 +106,6 @@ def process_newsgroup_topic():
 
 
 if __name__ == "__main__":
-    test = 'mysite123@gmail.com'
+    # test = 'mysite123@gmail.com'
 
-    print("Final result: ", check_email_validity(test))
+    # print("Final result: ", check_email_validity(test))
