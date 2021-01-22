@@ -70,7 +70,8 @@ def check_fullstop(component):
     else:
         return True
 
-#2 in homework requirements
+# Takes filepath and word_counts dictionary and returns tuple of valid email list and the word
+# count dictionary with cleaned and tokenized words.
 def process_newsgroup_file(filepath, word_counts):
     # Save each word into dictionary with words as keys and int counts as values
     valid_emails = []
@@ -100,16 +101,18 @@ def process_newsgroup_file(filepath, word_counts):
     return (valid_emails, word_counts)        
 
 
-
+# Takes a directory file path, reads each file in the folder. Writes a list of valid emails in each file
+# along with Pickle object of word counts dictionary from each file
 def process_newsgroup_topic(dir_filepath):
     word_list = {}
     emails = []
     
+
     files = glob.glob(dir_filepath)
     for f in files:
-        email_dict = process_newsgroup_file(f, word_list)
-        emails.extend(email_dict[0])
-        word_list.update(email_dict[1])
+        (temp_emails, temp_word_list) = process_newsgroup_file(f, word_list)
+        emails.extend(temp_emails)
+        word_list.update(temp_word_list)
     
     # Write emails to sci.crypt.emails.txt file
     with open('sci.crypt.emails.txt', 'w') as f:
@@ -122,8 +125,5 @@ def process_newsgroup_topic(dir_filepath):
 
 
 if __name__ == "__main__":
-#    process_newsgroup_topic('/home/anushnap/data515/homework-2/20_newsgroups/sci.crypt/*')
-    word_list = {}
-    f = '/home/anushnap/data515/homework-2/20_newsgroups/sci.crypt/'
-    email_dict = process_newsgroup_file(f, word_list)
-    print(email_dict)
+    
+    process_newsgroup_topic('/home/anushnap/data515/homework-2/20_newsgroups/sci.crypt/*')
