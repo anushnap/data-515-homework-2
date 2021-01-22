@@ -101,24 +101,29 @@ def process_newsgroup_file(filepath, word_counts):
 
 
 
-#3 in homework requirements
 def process_newsgroup_topic(dir_filepath):
     word_list = {}
     emails = []
     
-    files = glob.glob(dir_fil)
-    for (f in files):
+    files = glob.glob(dir_filepath)
+    for f in files:
         email_dict = process_newsgroup_file(f, word_list)
-        emails.append(email_dict[0])
+        emails.extend(email_dict[0])
         word_list.update(email_dict[1])
-        
-    return (emails, word_list)
-
+    
+    # Write emails to sci.crypt.emails.txt file
+    with open('sci.crypt.emails.txt', 'w') as f:
+        for e in emails:
+            f.write('%s\n' % e)
+    
+    with open('sci.crypt.wordcounts.txt', 'wb') as p:
+        pickle.dump(word_list, p)
 
 
 
 if __name__ == "__main__":
-
-# '/home/anushnap/msds/DATA 515 - Software Design/homework-2/20_newsgroups/sci.crypt/*'
-    
-    print("Final result: ", process_newsgroup_file(test, test_d))
+#    process_newsgroup_topic('/home/anushnap/data515/homework-2/20_newsgroups/sci.crypt/*')
+    word_list = {}
+    f = '/home/anushnap/data515/homework-2/20_newsgroups/sci.crypt/'
+    email_dict = process_newsgroup_file(f, word_list)
+    print(email_dict)
