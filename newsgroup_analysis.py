@@ -3,6 +3,8 @@
 # Homework 2: Programming
 # January 21, 2021
 import string
+import glob
+import pickle
 
 # Takes an string arg email and returns whether the email is valid based on requirements for valid emails
 def check_email_validity(email):
@@ -68,7 +70,7 @@ def check_fullstop(component):
     else:
         return True
 
-# #2 in homework requirements
+#2 in homework requirements
 def process_newsgroup_file(filepath, word_counts):
     # Save each word into dictionary with words as keys and int counts as values
     valid_emails = []
@@ -99,13 +101,24 @@ def process_newsgroup_file(filepath, word_counts):
 
 
 
-# #3 in homework requirements
-def process_newsgroup_topic():
-    pass
+#3 in homework requirements
+def process_newsgroup_topic(dir_filepath):
+    word_list = {}
+    emails = []
+    
+    files = glob.glob(dir_fil)
+    for (f in files):
+        email_dict = process_newsgroup_file(f, word_list)
+        emails.append(email_dict[0])
+        word_list.update(email_dict[1])
+        
+    return (emails, word_list)
+
+
 
 
 if __name__ == "__main__":
-    test = '/home/anushnap/msds/DATA 515 - Software Design/homework-2/20_newsgroups/sci.crypt/15565'
-    test_d = {}
 
+# '/home/anushnap/msds/DATA 515 - Software Design/homework-2/20_newsgroups/sci.crypt/*'
+    
     print("Final result: ", process_newsgroup_file(test, test_d))
